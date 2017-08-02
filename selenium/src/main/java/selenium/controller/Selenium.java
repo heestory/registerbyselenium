@@ -92,7 +92,7 @@ public class Selenium {
 		    driver.findElement(By.name("BB_SUBJECT")).clear();
 		    driver.findElement(By.name("BB_SUBJECT")).sendKeys(title);
 		    driver.switchTo().frame("UploadFrame");
-		   driver.findElement(By.xpath("//html/body/form/table/tbody/tr/td[3]/table/tbody/tr[2]/td/input[1]")).sendKeys("C:\\Users\\JH-PC\\Desktop\\selenium\\1.JPG");
+		    driver.findElement(By.xpath("//html/body/form/table/tbody/tr/td[3]/table/tbody/tr[2]/td/input[1]")).sendKeys("C:\\Users\\JH-PC\\Desktop\\selenium\\1.JPG");
 		    //driver.findElement(By.xpath("//html/body/form/table/tbody/tr/td[3]/table/tbody/tr[2]/td/input[1]")).sendKeys("/home/ec2-usr/firefox/1.JPG");
 		    driver.findElement(By.name("SubmitBtn")).click();
 		    
