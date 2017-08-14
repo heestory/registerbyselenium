@@ -12,15 +12,14 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
 	
-    <context:component-scan base-package="portfolio.*"/>
-       <!-- the mvc resources tag does the magic -->
-		 <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
+    <context:component-scan base-package="selenium.*"/>
+    
+    <!-- the mvc resources tag does the magic -->
+	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
 		
-		    <!-- also add the following beans to get rid of some exceptions -->
-		 <bean      class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-		 <bean
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-		 </bean>
+    <!-- also add the following beans to get rid of some exceptions -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
     
     <bean id="internalResourceViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -11,30 +11,30 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Utils {
 	
-	public boolean naverModule(WebDriver driver, String siteUrl, String menuName) throws InterruptedException{
+	public static boolean naverModule(WebDriver driver, String siteUrl, String menuName) throws InterruptedException{
 		
 		String parentHandle="";
-		   Set<String> PopHandle= null;
-		   Iterator<String> it = null;
-		   String ChildHandle = "";
+		Set<String> PopHandle= null;
+		Iterator<String> it = null;
+		String ChildHandle = "";
 		
 		driver = new ChromeDriver();
-		driver.get("http://cafe.naver.com/newplanmarketing");
+		driver.get(siteUrl);
 	    driver.findElement(By.cssSelector("span.gnb_txt")).click();
 	    driver.findElement(By.id("id")).clear();
 	    driver.findElement(By.id("id")).sendKeys("multimedia89");
 	    driver.findElement(By.id("pw")).clear();
 	    driver.findElement(By.id("pw")).sendKeys("picture89");
 	    driver.findElement(By.cssSelector("input.btn_global")).click();
-	    driver.findElement(By.id("menuLink69")).click();
+	    driver.findElement(By.id(menuName)).click();
 	    driver.switchTo().frame("cafe_main");
 	    WebDriverWait wait4 = new WebDriverWait(driver, 30);// 1 minute 
-	    wait4.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("�۾���")));
-	    driver.findElement(By.linkText("�۾���")).click();
+	    wait4.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("글쓰기")));
+	    driver.findElement(By.linkText("글쓰기")).click();
 	    WebDriverWait wait5 = new WebDriverWait(driver, 30);// 1 minute 
 	    wait5.until(ExpectedConditions.visibilityOfElementLocated(By.id("subject")));
 	    driver.findElement(By.id("subject")).clear();
-	    driver.findElement(By.id("subject")).sendKeys("It �������");
+	    driver.findElement(By.id("subject")).sendKeys("It 인재모집");
 	    
 	    
 	    driver.findElement(By.cssSelector("a.ico_pic > strong")).click();
