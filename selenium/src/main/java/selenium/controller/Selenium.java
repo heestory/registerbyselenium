@@ -7,15 +7,12 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,12 +37,19 @@ public class Selenium {
    @Value("#{webDriver['webdriver.window_firefox']}")
    private String WEBDRIVER_FIREFOX_FILE_PATH;
    
-   private static Log logger = LogFactory.getLog(Selenium.class);
+   static final Logger LOGGER = LoggerFactory.getLogger(Selenium.class);
+   
 
 	
 	@RequestMapping("selenium")
 	public String selenium(){
+		LOGGER.info("-------------------------------------------");
+		LOGGER.info("Start Server");
+		LOGGER.info("-------------------------------------------");
 		
+		LOGGER.debug("-------------------------------------------");
+		LOGGER.debug("Start Server");
+		LOGGER.debug("-------------------------------------------");
 		return "selenium";
 	}
 	
@@ -76,18 +80,14 @@ public class Selenium {
 		    	    .addTo(DesiredCapabilities.firefox());
 		    caps.setCapability("acceptInsecureCerts", true);*/
 		    
-		    logger.info("Node");
 		    //String Node = "http://127.0.0.1:4444";
 		    //WebDriver driver = new  RemoteWebDriver(new URL(Node), caps);
 		    
 		    driver = new FirefoxDriver();
-		    logger.info("getDriver before");
 		    driver.get("http://www.dbcut.com/bbs/index.php");
-		    logger.info("getDriver after");
 		    driver.manage().timeouts().implicitlyWait(700, TimeUnit.SECONDS);
 		    //WebDriverWait wait = new WebDriverWait(driver, 120);// 1 minute 
 		 //   wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("MB_ID")));
-		    logger.info("MB_ID BFORE");
 		    driver.findElement(By.id("MB_ID")).clear();
 		    driver.findElement(By.id("MB_ID")).sendKeys("jeongh389");
 		    driver.findElement(By.id("MB_PW")).clear();
@@ -130,6 +130,7 @@ public class Selenium {
 		boolean resultFlag = false;
 		
 		try {
+			
 			
 			System.setProperty("webdriver.chrome.driver", WEBDRIVER_CHROME_FILE_PATH);
 			
