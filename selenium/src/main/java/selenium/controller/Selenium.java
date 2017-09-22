@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.net.UrlChecker.TimeoutException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,14 +49,11 @@ public class Selenium {
 		LOGGER.info("Start Server");
 		LOGGER.info("-------------------------------------------");
 		
-		LOGGER.debug("-------------------------------------------");
-		LOGGER.debug("Start Server");
-		LOGGER.debug("-------------------------------------------");
-		return "selenium";
+		return "index";
 	}
 	
 	@RequestMapping("dbcut")
-	public ModelAndView dbcut(HttpServletRequest request, HttpServletResponse response)throws Exception { 
+	public ModelAndView dbcut(HttpServletRequest request, HttpServletResponse response){ 
 		
 		String title;
 		ModelAndView mv = new ModelAndView();
@@ -106,40 +105,44 @@ public class Selenium {
 		    driver.findElement(By.name("BB_CONTENT")).sendKeys("IT ������");
 		    driver.findElement(By.xpath("(//input[@type='image'])[2]")).click();
 		    
-		    driver.quit();
-		    String verificationErrorString = verificationErrors.toString();
-		    if (!"".equals(verificationErrorString)) {
-		    }
-			
 			mv.setViewName("selenium");
 		}catch(Exception e){
-			throw e;
+			LOGGER.error("============================================");
+			LOGGER.error("Not found button name:"+e.toString());
+			mv.addObject("result", "해당 이름을 찾을 수 없습니다.");
+			LOGGER.error("============================================");
+		}finally {
+			driver.quit();
 		}
 		
 		return mv;
 		
-		
 	}
 	
 	@RequestMapping("gimasa")
-	public ModelAndView gimasa(HttpServletRequest request, HttpServletResponse response)throws Exception { 
+	public ModelAndView gimasa(HttpServletRequest request, HttpServletResponse response){ 
 		
-		
-		String title;
 		ModelAndView mv = new ModelAndView();
-		boolean resultFlag = false;
 		
 		try {
-			
-			
 			System.setProperty("webdriver.chrome.driver", WEBDRIVER_CHROME_FILE_PATH);
-			
-			resultFlag = Utils.naverModule(driver, "http://cafe.naver.com/newplanmarketing","menuLink69");
-			
+			driver = new ChromeDriver();
+			LOGGER.info("=========================GIMASA START===================================");
+			driver = Utils.naverModule(driver, "http://cafe.naver.com/newplanmarketing","menuLink69");
 			mv.setViewName("selenium");
-			
-		}catch(Exception e){
-			throw e;
+			LOGGER.info("=========================GIMASA END===================================");
+		}catch(TimeoutException e){
+			LOGGER.error("============================================");
+			LOGGER.error("Not found button name:"+e);
+			mv.addObject("result", "해당 이름을 찾을 수 없습니다.");
+			LOGGER.error("============================================");
+		}catch(Exception e) {
+			LOGGER.error("============================================");
+			LOGGER.error("ErrorOccur:"+e);
+			LOGGER.error("============================================");
+		}
+		finally {
+			driver.quit();
 		}
 		
 		return mv;

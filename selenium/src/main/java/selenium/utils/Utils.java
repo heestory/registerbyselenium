@@ -8,17 +8,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import selenium.controller.Selenium;
 
 public class Utils {
 	
-	public static boolean naverModule(WebDriver driver, String siteUrl, String menuName) throws InterruptedException{
+	
+	static final Logger LOGGER = LoggerFactory.getLogger(Selenium.class);
+	
+	public static WebDriver naverModule(WebDriver driver, String siteUrl, String menuName) throws Exception{
+		
 		
 		String parentHandle="";
 		Set<String> PopHandle= null;
 		Iterator<String> it = null;
 		String ChildHandle = "";
 		
-		driver = new ChromeDriver();
 		driver.get(siteUrl);
 	    driver.findElement(By.cssSelector("span.gnb_txt")).click();
 	    driver.findElement(By.id("id")).clear();
@@ -29,13 +36,12 @@ public class Utils {
 	    driver.findElement(By.id(menuName)).click();
 	    driver.switchTo().frame("cafe_main");
 	    WebDriverWait wait4 = new WebDriverWait(driver, 30);// 1 minute 
-	    wait4.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("글쓰기")));
-	    driver.findElement(By.linkText("글쓰기")).click();
+	    wait4.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(menuName)));
+	    driver.findElement(By.linkText(menuName)).click();
 	    WebDriverWait wait5 = new WebDriverWait(driver, 30);// 1 minute 
 	    wait5.until(ExpectedConditions.visibilityOfElementLocated(By.id("subject")));
 	    driver.findElement(By.id("subject")).clear();
 	    driver.findElement(By.id("subject")).sendKeys("It 인재모집");
-	    
 	    
 	    driver.findElement(By.cssSelector("a.ico_pic > strong")).click();
 	    
@@ -47,7 +53,6 @@ public class Utils {
 	        if (it.next() != parentHandle)
 	        {   
 	            ChildHandle = it.next().toString();
-	            // because the new window will be the last one opened
 	            driver.switchTo().window(ChildHandle);
 	            WebDriverWait wait = new WebDriverWait(driver, 30);// 1 minute 
 	            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button.npe_alert_btn_close")));
@@ -65,9 +70,7 @@ public class Utils {
 	    driver.findElement(By.id("cafewritebtn")).click();
 	    Thread.sleep(3000);
 	    
-
-	    driver.quit();
 		
-		return false;
+		return driver;
 	}
 }

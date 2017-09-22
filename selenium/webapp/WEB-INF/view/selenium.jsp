@@ -228,7 +228,7 @@
 	    <h2>DBCUT</h2><br>
     </div>
     <div class="col-sm-6">
-    <form action="/hee/dbcut" method="post">
+    <form action="/dbcut" method="post">
 	  <div class="form-group">
 	    <label for="title">Title</label>
 	    <input type="text" class="form-control" id="title" name="title">
@@ -245,7 +245,7 @@
        <h2>기마사</h2><br>
     </div>
     <div class="col-sm-6">
-       <form action="/hee/gimasa" method="post">
+       <form action="/gimasa" method="post">
 		  <div class="form-group">
 		    <label for="title">Title</label>
 		    <input type="text" class="form-control" id="title" name="title">

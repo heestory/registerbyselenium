@@ -31,7 +31,7 @@
 		<appender-ref ref="console" />
 	</logger>
 	
-	<root level="debug">
+	<root level="debug" additivity="false">
     	<appender-ref ref="console" />
   	</root>
 	<!-- <logger name="selenium.*" level="DEBUG" additivity="false">
